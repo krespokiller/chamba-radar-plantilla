@@ -1,0 +1,45 @@
+{
+  "lang": "es",
+  "name": "Nombre Completo",
+  "short_name": "Nombre Apellido",
+  "contact": "Ciudad, Colombia · correo@ejemplo.com · linkedin.com/in/usuario",
+  "jobs": [
+    {
+      "key": "actual",
+      "title": "Cargo, Empresa",
+      "dates": "Ene 2023 – Presente · Bogotá",
+      "intro": "Una línea sobre la empresa o el equipo.",
+      "bullets": {
+        "logro1": "Logro con un número concreto.",
+        "logro2": "Otro logro concreto."
+      }
+    }
+  ],
+  "earlier": "<b>Antes:</b> cargos anteriores en una línea.",
+  "skills": {
+    "tecnicas": {
+      "label": "Habilidades técnicas",
+      "text": "herramientas, normas, software"
+    },
+    "otras": {
+      "label": "Otras",
+      "text": "liderazgo, idiomas"
+    }
+  },
+  "education_title": "Educación e idiomas",
+  "education": "Título, Universidad · Certificaciones · Español (nativo), Inglés (nivel)",
+  "variants": {
+    "General": {
+      "role": "Cargo objetivo",
+      "profile": "Dos o tres frases sobre quién eres y qué resuelves.",
+      "highlight": null,
+      "jobs": {
+        "actual": "all"
+      },
+      "skills": [
+        "tecnicas",
+        "otras"
+      ]
+    }
+  }
+}

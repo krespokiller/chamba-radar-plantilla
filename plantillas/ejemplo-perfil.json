@@ -1,0 +1,62 @@
+{
+  "lang": "es",
+  "name": "Laura Gómez Restrepo",
+  "short_name": "Laura Gomez",
+  "contact": "EJEMPLO CON DATOS FICTICIOS · Medellín, Colombia · laura.gomez@ejemplo.com · linkedin.com/in/laura-gomez-ejemplo",
+  "jobs": [
+    {
+      "key": "andes",
+      "title": "Analista de Ciberseguridad (SOC), Andes Pagos S.A.S.",
+      "dates": "Mar 2023 – Presente · Híbrido, Medellín",
+      "intro": "Fintech de pagos con 1,2 millones de usuarios; equipo SOC de 6 personas.",
+      "bullets": {
+        "triage": "Reduje el tiempo medio de respuesta a alertas críticas de 4 horas a 50 minutos creando 12 playbooks en Microsoft Sentinel.",
+        "phishing": "Diseñé la campaña trimestral de simulación de phishing: la tasa de clics bajó del 18 % al 6 % en un año.",
+        "iso": "Lideré la evidencia técnica de 9 controles para la certificación ISO 27001, obtenida sin no conformidades mayores.",
+        "cloud": "Automaticé la revisión diaria de configuraciones de AWS (Security Hub + Lambda), cerrando 140 hallazgos de alta severidad."
+      }
+    },
+    {
+      "key": "valle",
+      "title": "Técnica de Soporte e Infraestructura, Servicios TI del Valle",
+      "dates": "Ene 2021 – Feb 2023 · Presencial, Cali",
+      "bullets": {
+        "parches": "Implementé la gestión de parches con WSUS para 300 equipos, pasando del 60 % al 97 % de cumplimiento mensual.",
+        "backup": "Documenté y probé el plan de copias de seguridad de 4 sedes; la restauración de prueba bajó de 2 días a 6 horas."
+      }
+    }
+  ],
+  "earlier": "<b>Antes (2019–2020):</b> Practicante de soporte TI, Universidad del Valle.",
+  "skills": {
+    "seg": {
+      "label": "Seguridad",
+      "text": "SIEM (Microsoft Sentinel, Splunk), respuesta a incidentes, gestión de vulnerabilidades (Nessus), phishing simulado, ISO 27001, NIST CSF"
+    },
+    "cloud": {
+      "label": "Nube e infraestructura",
+      "text": "AWS (Security Hub, GuardDuty, IAM), Azure AD, Windows Server, Linux, redes TCP/IP"
+    },
+    "auto": {
+      "label": "Automatización",
+      "text": "Python, PowerShell, KQL"
+    }
+  },
+  "education_title": "Educación, certificaciones e idiomas",
+  "education": "Ingeniería de Sistemas, Universidad del Valle (2020) · CompTIA Security+ (2022) · Microsoft SC-200 (2024) · Español (nativo), inglés (B2)",
+  "variants": {
+    "Ejemplo_SOC": {
+      "role": "Analista de Ciberseguridad (SOC)",
+      "profile": "Analista de ciberseguridad con 3 años en un SOC de una fintech y 2 en infraestructura. Fuerte en detección y respuesta con Microsoft Sentinel, en seguridad de AWS y en llevar controles ISO 27001 a la práctica. Busco un rol SOC o de ingeniería de seguridad, remoto o híbrido en Medellín.",
+      "highlight": null,
+      "jobs": {
+        "andes": "all",
+        "valle": "all"
+      },
+      "skills": [
+        "seg",
+        "cloud",
+        "auto"
+      ]
+    }
+  }
+}

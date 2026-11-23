@@ -1,0 +1,4 @@
+node_modules/
+.env
+cv/__pycache__/
+cv/out/

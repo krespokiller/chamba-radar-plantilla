@@ -1,0 +1,87 @@
+name: radar
+
+on:
+  schedule:
+    # Una vez al día, 6:37 a. m. hora de Colombia (UTC-5). Para dos al día: '37 11,18 * * *'.
+    # Fuera de la hora en punto para que GitHub no la retrase.
+    - cron: '37 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit data/state.json and digest/
+  issues: write     # open the daily digest issue
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Sin perfil configurado no hay nada que buscar: no gastar minutos.
+      - name: Perfil configurado?
+        id: perfil
+        run: |
+          if grep -q 'cambiar-palabras-del-titulo' config/profile.json; then
+            echo "::notice::Tu perfil todavía es la plantilla. Pídele a Claude 'configúrame el radar' (GUIA.md, paso 2)."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Un repo público no debe tener tus datos personales (teléfono, salario, historias).
+      - name: Revisar privacidad
+        if: steps.perfil.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          private=$(gh api "repos/$GITHUB_REPOSITORY" --jq .private)
+          if [ "$private" != "true" ] && { [ -f perfil/datos.md ] || [ -f perfil/postulaciones.md ]; }; then
+            echo "::error::Tu repo es PÚBLICO y tiene perfil/datos.md o perfil/postulaciones.md. Hazlo privado (Settings → General → Danger Zone → Change visibility) o borra esos archivos."
+            exit 1
+          fi
+
+      - if: steps.perfil.outputs.ok == 'true'
+        run: npm ci
+      - if: steps.perfil.outputs.ok == 'true'
+        run: npm test
+      - if: steps.perfil.outputs.ok == 'true'
+        run: npm run typecheck
+
+      - name: Run radar
+        if: steps.perfil.outputs.ok == 'true'
+        id: radar
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: node src/main.ts
+
+      - name: Commit state
+        if: steps.perfil.outputs.ok == 'true'
+        run: |
+          git config user.name "chamba-radar[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data digest
+          git diff --cached --quiet || git commit -m "radar: ${{ steps.radar.outputs.day }}"
+          # Si hiciste push mientras corría, traer tus cambios antes de subir los del radar.
+          git pull --rebase --autostash
+          git push
+
+      - name: Open digest issue
+        if: steps.perfil.outputs.ok == 'true' && steps.radar.outputs.new != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create digest --color 0E8A16 --description "Digest diario de chamba-radar" --force
+          gh issue create \
+            --title "Chamba radar · ${{ steps.radar.outputs.day }} · ${{ steps.radar.outputs.new }} nuevas" \
+            --body-file digest/latest.md --label digest

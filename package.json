@@ -1,0 +1,27 @@
+{
+  "name": "chamba-radar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Radar de ofertas de trabajo para Colombia: lee portales y bolsas de empleo, filtra por tu perfil y te manda lo nuevo. Con skills de Claude para CV, postulaciones y entrevistas.",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "radar": "node src/main.ts",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "cv": "bash cv/build.sh cv/out",
+    "actualizar": "node src/update.ts"
+  },
+  "dependencies": {
+    "imapflow": "^1.7.8",
+    "mailparser": "^3.14.2"
+  },
+  "devDependencies": {
+    "@types/mailparser": "^3.9.0",
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
+  },
+  "license": "MIT"
+}
